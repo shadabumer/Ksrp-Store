@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ 'Item Details' }}
+    </ion-title>
+  </ion-toolbar>
+  <!-- <app-search></app-search> -->
+</ion-header>
+
+<ion-content>
+  <section class="item-details ion-padding">
+    <h1>{{ currentItem.name }} - {{ currentItem.description }}, {{ '1kg' }}</h1>
+    <h3>{{ currentItem.price | currency:'INR' }}</h3>
+    <ion-img [src]="currentItem.imageUrl"></ion-img>
+    <ion-text color="medium">
+      <h2>About Product</h2>
+    </ion-text>
+    <ion-text>
+      <h4>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint aliquam velit molestias, esse modi vero sed libero molestiae ducimus aut facere est iste voluptate exercitationem nesciunt omnis minima deleniti. Rerum?
+      </h4>
+    </ion-text>
+  </section>
+  <ion-button size="default" expand="full" shape="round"
+  (click)="addToCart($event)">
+    Add to Basket &nbsp;
+    <ion-icon name="basket"></ion-icon>
+  </ion-button>
+</ion-content>
+
+<ion-footer>
+  <p>hello world</p>
+  <ion-tabs >
+    <ion-tab-bar slot="bottom" color="primary">
+      <ion-tab-button routerLink="/tabs/tab1">
+          <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button routerLink="/tabs/tab2">
+        <ion-icon name="apps"></ion-icon>
+        <ion-label>Categories</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button routerLink="/tabs/tab3">
+          <ion-icon name="basket"></ion-icon>
+        <ion-label>Basket</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  
+  </ion-tabs>
+</ion-footer>

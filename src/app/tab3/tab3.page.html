@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      Basket
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+ 
+  <div class="ion-padding">
+ 
+    <ion-list>
+      <ion-item *ngFor="let item of cart" class="ion-text-wrap">
+        <ion-grid color="primary">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="4" class="ion-align-self-center">
+              <ion-img [src]="item.imageUrl"></ion-img>
+            </ion-col>
+            <ion-col size="2" class="ion-align-self-center">
+              <ion-button color="medium" fill="clear" (click)="decreaseCartItem(item)">
+                <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+ 
+            <ion-col size="1" class="ion-align-self-center">
+              {{ item.amount }}
+            </ion-col>
+ 
+            <ion-col size="2" class="ion-align-self-center">
+              <ion-button color="medium" fill="clear" (click)="increaseCartItem(item)">
+                <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+ 
+            <ion-col size="2" offset="1">
+              <ion-button color="medium" fill="clear" (click)="removeCartItem(item)">
+                <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="9" class="ion-align-self-center">
+              <p>{{ item.name }}</p>
+            </ion-col>
+            <ion-col size="3" class="ion-text-end">
+              {{ item.amount * item.price | currency:'INR' }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="9">
+              Total:
+            </ion-col>
+            <ion-col size="3" class="ion-text-end">
+              {{ getTotal() | currency:'INR' }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+ 
+    <ion-button expand="full" (click)="checkout()"
+    size="medium" expand="full" shape="round" color="primary"
+    [disabled]="cart.length == 0">
+      Checkout
+    </ion-button>
+  </div>
+ 
+</ion-content>

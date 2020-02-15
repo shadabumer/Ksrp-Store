@@ -1,0 +1,23 @@
+:host {
+    ion-content {
+        --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+    }
+}
+
+.paz {
+    position: relative;
+    z-index: 10;
+}
+
+a {
+    text-decoration: none;
+    color: #f4f4f4;
+}
+
+.auth-page .auth-content {
+    margin: 25% 5%;
+}
+
+.list-form {
+    margin-top: 1rem;
+}

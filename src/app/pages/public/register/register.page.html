@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="login auth-page ion-padding">
+  <!-- Logo -->
+  <div class="animated fadeInDown ion-padding text-center">
+    <h4 class="ion-no-margin ion-text-center">
+      <ion-text color="light" class="fw700">
+        Welcome to Ksrp-Store
+      </ion-text>
+    </h4>
+  </div>
+  
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="list-form">
+    <ion-item class="animated fadeInUp">
+      <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="text" formControlName="firstName"></ion-input>
+      <div class="error-messages" *ngIf="f.firstName.touched && f.firstName.errors">
+        <ion-text color="danger">
+          <small *ngIf="f.firstName.errors?.required">First name is required</small>
+        </ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="text" formControlName="lastName"></ion-input>
+      <div class="error-messages" *ngIf="f.lastName.touched && f.lastName.errors">
+        <ion-text color="danger">
+          <small *ngIf="f.lastName.errors?.required">Last name is required</small>
+        </ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Mobile <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="number" formControlName="mobile"></ion-input>
+      <div class="error-messages" *ngIf="f.mobile.touched && f.mobile.errors">
+        <ion-text color="danger">
+          <small *ngIf="f.mobile.errors?.required">mobile number is required</small>
+        </ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Email <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+      <div class="error-messages" *ngIf="f.email.touched && f.email.errors">
+        <ion-text color="danger">
+          <small *ngIf="f.email.errors?.required">email is required</small>
+          <small *ngIf="f.email.errors?.email">enter a valid email</small>
+        </ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Password <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+      <div class="error-messages" *ngIf="f.password.touched && f.password.errors">
+        <ion-text color="danger">
+          <small *ngIf="f.password.errors?.required">password is required</small>
+          <small *ngIf="f.password.errors?.minlength">Minimum length of password is 6</small>
+        </ion-text>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Confirm Password <ion-text color="danger">*</ion-text>
+      </ion-label>
+      <ion-input type="password" formControlName="confirmPassword" 
+      (ionChange)="confirmPassword()"
+      [debounce]="1000"></ion-input>
+      <ion-text color="danger">
+        <small *ngIf="!isPasswordMatch">Password does not match!</small>
+      </ion-text>
+      <div class="error-messages" *ngIf="f.confirmPassword.touched && f.confirmPassword.errors">
+        <ion-text color="danger">
+          <small *ngIf="f.confirmPassword.errors?.required">confirm password is required</small>
+          <small *ngIf="f.confirmPassword.errors?.minlength">Minimum length of password is 6</small>
+
+        </ion-text>
+      </div>
+    </ion-item>
+
+    <div class="ion-padding">
+      <ion-button icon-left size="default" expand="full" shape="round" color="dark" type="submit">
+        <ion-icon name="log-in"></ion-icon>
+        &nbsp; Sign Up
+      </ion-button>
+      <div class="error-messages ion-margin-top ion-text-center" *ngIf="isSubmitted && registerForm.invalid">
+        <ion-text color="danger">
+          <small>Form is invalid!</small>
+        </ion-text>
+      </div>
+    </div>
+    <p class="ion-padding ion-text-center">Already Registered? <strong><a routerLink="/login">Sign In Here</a></strong>
+    </p>
+  </form>
+</ion-content>

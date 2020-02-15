@@ -1,0 +1,7 @@
+{
+  "name": "Ksrp-Store",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

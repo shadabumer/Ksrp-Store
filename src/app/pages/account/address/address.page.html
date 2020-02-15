@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ 'Address' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="current-address" *ngIf="currentAdddress$ | async as currentAddress">
+    <ion-card>
+      <ion-item>
+        <ion-icon name="pin" slot="start"></ion-icon>
+        <ion-label>Current-Address</ion-label>
+      </ion-item>
+
+      <ion-card-content>
+        <h5>House No: {{ currentAddress.houseNo }}</h5>
+        <h5>Building Name: {{ currentAddress.buildingName }}</h5>
+        <h5>Area details: {{ currentAddress.areaDetails }}</h5>
+        <h5>City: {{ currentAddress.city }}</h5>
+        <h5>Pincode: {{ currentAddress.pincode }}</h5>
+        <ion-button color="primary" class="ion-margin-top">Edit</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="address-form" [hidden]="currentAdddress$ | async">
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+      <ion-list lines="full" class="ion-no-margin ion-padding">
+        <ion-item>
+          <ion-label position="stacked">House No. <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text" formControlName="houseNo"></ion-input>
+
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Building Name <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text" formControlName="buildingName"></ion-input>
+          <!-- <div class="error-messages" *ngIf="f.lastName.touched && f.lastName.errors">
+                <ion-text color="danger">
+                  <small *ngIf="f.lastName.errors?.required" >Last name is required</small>
+                </ion-text>
+              </div> -->
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Area Details <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text" formControlName="areaDetails"></ion-input>
+          <!-- <div class="error-messages" *ngIf="f.mobile.touched && f.mobile.errors">
+                <ion-text color="danger">
+                  <small *ngIf="f.mobile.errors?.required" >mobile number is required</small>
+                </ion-text>
+              </div> -->
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">City <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text" formControlName="city"></ion-input>
+          <!-- <div class="error-messages" *ngIf="f.email.touched && f.email.errors">
+              <ion-text color="danger">
+                <small *ngIf="f.email.errors?.required" >email is required</small>
+                <small *ngIf="f.email.errors?.email" >enter a valid email</small>
+              </ion-text>
+            </div> -->
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Pincode <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="number" formControlName="pincode"></ion-input>
+          <!-- <div class="error-messages" *ngIf="f.password.touched && f.password.errors">
+              <ion-text color="danger">
+                <small *ngIf="f.password.errors?.required">password is required</small>
+                <small *ngIf="f.password.errors?.minlength">Minimum length of password is 6</small>
+              </ion-text>
+            </div> -->
+        </ion-item>
+
+        <!-- <ion-item>
+            <ion-label position="stacked">Confirm Password <ion-text color="danger">*</ion-text></ion-label>
+            <ion-input type="password"
+           ></ion-input> -->
+        <!-- <div class="error-messages" *ngIf="f.confirmPassword.touched && f.confirmPassword.errors">
+              <ion-text color="danger">
+                <small *ngIf="f.confirmPassword.errors?.required">confirm password is required</small>
+                <small *ngIf="f.confirmPassword.errors?.minlength">Minimum length of password is 6</small>
+              </ion-text>
+            </div> -->
+        <!-- </ion-item> -->
+
+      </ion-list>
+
+      <div class="ion-padding">
+        <ion-button expand="block" type="submit" class="ion-no-margin">Save</ion-button>
+        <!-- <div class="error-messages ion-margin-top ion-text-center" 
+          *ngIf="isSubmitted && registerForm.invalid">
+            <ion-text color="danger">
+              <small>Form is invalid!</small>
+            </ion-text>
+          </div> -->
+      </div>
+      <!-- <p class="ion-padding ion-text-center">Already Registered? <ion-text><a routerLink="/login">Sign In Here</a></ion-text></p> -->
+    </form>
+  </div>
+
+</ion-content>

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ 'Ordres' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let order of Orders$ | async">
+      <ion-card>
+        <ion-grid>
+          <ion-row class="orders">
+            <ion-col size="4" class="order-img">
+              <ion-img [src]="order.imageUrl" height="160" alt=""></ion-img> 
+            </ion-col>
+            <ion-col size="8" class="ion-padding-start">
+              <ion-card-subtitle>Order No: {{ order.orderNo }}</ion-card-subtitle>
+              <h4>{{ order.name }}</h4>
+              <p>Quantity: {{ order.amount }}</p>
+              <!-- <small>500gm</small> -->
+              <h5>Total Cost: <span class="price">{{ order.price * order.amount | currency:'INR' }}</span></h5>
+              <p>Ordered on {{ order.orderNo | date }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-card>
+  </ion-list>
+
+  
+</ion-content>

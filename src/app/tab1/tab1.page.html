@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Ksrp-Store</ion-title>
+  </ion-toolbar>
+  <app-search></app-search>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-slides pager="true" [options]="slideOpts">
+    <ion-slide>
+      <img src="/assets/images/slider/1.jpg" alt="" />
+    </ion-slide>
+    <ion-slide>
+      <img src="/assets/images/slider/2.jpg" alt="" />
+    </ion-slide>
+    <ion-slide>
+      <img src="/assets/images/slider/3.jpg" alt="" />
+    </ion-slide>
+  </ion-slides>
+
+  <ion-card>
+    <ion-card-header color="primary">
+      <ion-card-title class="ion-text-center">
+        <h3>Shop By Category</h3>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="row">
+        <div class="column" *ngFor="let category of categories; let i = index"
+          (click)=" i>= 6 ? viewMore($event) : onSelectCategory(category.id)" [class.no-border]="i >= 6">
+          <ng-container *ngIf="i < 6; else vieowMoreCategory">
+            <ion-img [src]="category.imageUrl" [alt]="category.name"></ion-img>
+            <ion-label class="ion-text-center">{{ category.name }}</ion-label>
+          </ng-container>
+        </div>
+      </div>
+      <ng-template #vieowMoreCategory>
+        <ion-button expand="block" shape="round" fill="outline">View More
+        </ion-button>
+      </ng-template>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- product list starts here -->
+  <ion-list>
+    <ion-list-header color="primary">
+      <h2 class="ion-text-center">Browse Products</h2>
+    </ion-list-header>
+    <ion-card (click)="onItemSelected(item)" *ngFor="let item of items">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="4" class="item-image">
+            <ion-img [src]="item.imageUrl" [alt]="item.name"></ion-img>
+          </ion-col>
+          <ion-col size="8" class="ion-padding-start item-list">
+            <h4>{{ item.name }}</h4>
+            <p>
+              {{ item.description }}
+
+            </p>
+            <strong>500gm</strong>
+            <h5>{{ item.price | currency:'INR' }}
+              <ion-button class="ion-float-right" [disabled]="item.amount < 1" 
+              (click)="addToCart($event, item)">
+                Add &nbsp;
+                <ion-icon name="basket"></ion-icon>
+              </ion-button>
+            </h5>
+            <span *ngIf="item.amount < 1">
+              <ion-text color="danger">Out of stock</ion-text>
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </ion-list>
+  <!-- product list ends here -->
+
+  <ion-router-outlet main></ion-router-outlet>
+
+
+</ion-content>
