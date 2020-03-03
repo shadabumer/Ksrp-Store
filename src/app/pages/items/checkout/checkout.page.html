@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ 'Orders Summary' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let order of cartItems">
+    <ion-card>
+      <ion-grid>
+        <ion-row class="orders">
+          <ion-col size="4" class="order-img">
+            <ion-img [src]="order.imageUrl" height="160" alt=""></ion-img> 
+          </ion-col>
+          <ion-col size="8" class="ion-padding-start">
+            <ion-card-subtitle>Order No: {{ order.orderNo }}</ion-card-subtitle>
+            <h4>{{ order.name }}</h4>
+            <p>Quantity: {{ order.amount }}</p>
+            <h5>Total Cost: <span class="price">{{ order.price * order.amount | currency:'INR' }}</span></h5>
+            <!-- <p>Ordered on {{ order.orderNo | date }}</p> -->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </ion-card>
+</ion-list>
+</ion-content>
+
+<ion-footer color="primary">
+  <ion-toolbar>
+    <ion-title class="ion-text-left">
+      {{ 'Total: ' + total }}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="goToPayments()">Continue</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

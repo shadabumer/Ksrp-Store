@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ 'Payments' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header>
+        <ion-label>
+          Choose your payments method
+        </ion-label>
+      </ion-list-header>
+  
+      <ion-item>
+        <ion-label>COD</ion-label>
+        <ion-radio value="cod" 
+        (ionFocus)="isCardSelected = true; isPaymentNotSelected = false"
+        ></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Debit card</ion-label>
+        <ion-radio value="card" 
+        (ionFocus)="isCardSelected = false; isPaymentNotSelected = false"></ion-radio>
+      </ion-item>
+  
+    </ion-radio-group>
+  </ion-list>
+
+  <div class="payment-form" [hidden]=isCardSelected>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">
+          Payments form
+        </ion-card-title>
+      </ion-card-header>
+      <form [formGroup]="paymentForm">
+        <ion-item>
+          <ion-label position="stacked">Name on the card <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Card Number <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input type="number" formControlName="cardNumber"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">Expiry Year <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input type="number" formControlName="expiry"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="stacked">CVV <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input type="number" formControlName="cvv"></ion-input>
+      </ion-item>
+      </form>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button color="secondary" 
+  type="submit" 
+  expand="full" 
+  (click)="onSubmit()"
+  [disabled]="isPaymentNotSelected">Place your order</ion-button>
+</ion-footer>

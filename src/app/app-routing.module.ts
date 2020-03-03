@@ -41,6 +41,14 @@ const routes: Routes = [
     path: 'address',
     loadChildren: () => import('./pages/account/address/address.module').then( m => m.AddressPageModule)
   },
+  {
+    path: 'checkout',
+    loadChildren: () => import('./pages/items/checkout/checkout.module').then( m => m.CheckoutPageModule)
+  },
+  {
+    path: 'payments',
+    loadChildren: () => import('./pages/payments/payments.module').then( m => m.PaymentsPageModule)
+  },
 
 
 ];

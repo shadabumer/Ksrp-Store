@@ -29,6 +29,29 @@
     Add to Basket &nbsp;
     <ion-icon name="basket"></ion-icon>
   </ion-button>
+
+  <ion-item-divider>
+    <section class="ion-padding">
+      <ion-text color="medium">
+        <h3>User Feedback:</h3>
+      </ion-text>
+
+      <ion-textarea
+      class="feedback-area" 
+      color="primary"
+      [(ngModel)]="feedback"
+      placeholder="enter feedback"></ion-textarea>
+
+      <ion-button 
+      color="primary" 
+      (click)="onSubmit()">Submit</ion-button>
+    </section>
+    
+
+  </ion-item-divider>
+  
+
+
 </ion-content>
 
 <ion-footer>

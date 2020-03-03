@@ -33,7 +33,7 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
     this.categoryService.getCategories()
       .subscribe((categoryList: any) => {
-        this.categories = categoryList;
+        this.categories = categoryList.slice(0, 6);
         this.isCategoriesLoaded = true;
       })
 

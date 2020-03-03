@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Item } from '../models/item.model';
 import { Stock } from '../models/stock.model';
+import { Feedback } from '../models/feedback.model';
 
 
 @Injectable({
@@ -56,5 +57,9 @@ export class ManageItemsService {
 
   getAllStocks() {
     return this.db.collection('stock').valueChanges({idField: 'stockId'});
+  }
+
+  createFeedback(itemId: string, userId: string, feedback: Feedback) {
+    return this.db.collection('feedbacks').doc(itemId).collection('users').doc(userId).set(feedback);
   }
 }

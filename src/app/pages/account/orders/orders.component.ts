@@ -14,7 +14,7 @@ export class OrdersComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
-    this.Orders$ = this.cartService.getOrder()
+    this.Orders$ = this.cartService.getOrders()
   }
 
 }

@@ -34,7 +34,7 @@ export class UsersService {
 
 
   registerUser(user: User) {
-    return this.db.collection('users').add({...user});
+    return this.db.collection('users').doc(user.id).set({...user});
   }
 
   getUser(id: string) {

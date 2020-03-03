@@ -109,12 +109,13 @@ export class CartService {
 
     const cartItem: CartItem = {
       amount,
-      date: new Date(),
+      date: new Date().toDateString(),
       imageUrl: item.imageUrl,
       name: item.name,
       orderNo: Date.now(),
       price: item.price,
-      itemId: item.id
+      itemId: item.id,
+      status: 'pending',
     }
 
     this.db.collection('cart').doc(this.userId).collection('cartItems')
@@ -129,12 +130,13 @@ export class CartService {
   decreaseFromCartService(item: Item, amount) {
     const cartItem: CartItem = {
       amount,
-      date: new Date(),
+      date: new Date().toDateString(),
       imageUrl: item.imageUrl,
       name: item.name,
       orderNo: Date.now(),
       price: item.price,
-      itemId: item.id
+      itemId: item.id,
+      status: 'pending',
     }
     this.db.collection('cart').doc(this.userId).collection('cartItems')
     .doc(item.id).set(cartItem);
@@ -143,12 +145,13 @@ export class CartService {
   createOrder(item: Item) {
     let cartItem: CartItem = {
       amount: item.amount,
-      date: new Date(),
+      date: new Date().toDateString(),
       imageUrl: item.imageUrl,
       name: item.name,
       orderNo: Date.now(),
       price: item.price,
-      itemId: item.id
+      itemId: item.id,
+      status: 'pending',
     }
     
     const id = `${cartItem.name}${cartItem.orderNo}`.trim();
@@ -156,7 +159,7 @@ export class CartService {
     .doc(id).set(cartItem);
   }
 
-  getOrder() {
+  getOrders() {
     return this.db.collection<CartItem[]>('orders').doc(this.userId).collection('orderItems',
     ref => ref.orderBy('orderNo', 'desc').limit(10))
     .snapshotChanges()

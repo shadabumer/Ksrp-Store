@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/shared/users.service';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,10 @@ export class RegisterPage implements OnInit {
   registerForm: FormGroup;
   isSubmitted: boolean = false;
   isPasswordMatch: boolean = true;
+  newUserId: string = "";
 
-  constructor(private users: UsersService) { }
+  constructor(private users: UsersService, 
+    private router: Router) { }
 
   ngOnInit() {
     this.registerForm = new FormGroup({
@@ -44,27 +47,35 @@ export class RegisterPage implements OnInit {
     if (this.registerForm.invalid) return;
 
     this.onCreateAccount();
-    this.onRegisterUser();
 
-    this.registerForm.reset();
+    // this.registerForm.reset();
     this.isSubmitted = false;
   }
 
   onCreateAccount() {
-    const newuser = this.users.createAccount(this.f.email.value, this.f.password.value);
+    const newuser = this.users.createAccount(this.f.email.value, this.f.password.value)
+    .then(newUserData => { 
+      console.log('new user data:', newUserData.user.uid);
+      this.newUserId = newUserData.user.uid;
+
+      this.onRegisterUser();
+
+    });
     console.log('new user:', newuser);
   }
 
   onRegisterUser() {
     let newUser: User = {
-      id: this.users.userDetails().uid,
+      id: this.newUserId,
       firstName: this.f.firstName.value,
       lastName: this.f.lastName.value,
       email: this.f.email.value,
       mobile: this.f.mobile.value
     }
+    console.log('new user details:', newUser);
 
     this.users.registerUser(newUser);
+    this.router.navigate(['login']);
   }
 
 }
