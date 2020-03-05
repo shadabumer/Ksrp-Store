@@ -18,7 +18,7 @@
     <ion-item class="animated fadeInUp">
       <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text>
       </ion-label>
-      <ion-input type="text" formControlName="firstName"></ion-input>
+      <ion-input color="light" type="text" formControlName="firstName"></ion-input>
       <div class="error-messages" *ngIf="f.firstName.touched && f.firstName.errors">
         <ion-text color="danger">
           <small *ngIf="f.firstName.errors?.required">First name is required</small>
@@ -29,7 +29,7 @@
     <ion-item>
       <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text>
       </ion-label>
-      <ion-input type="text" formControlName="lastName"></ion-input>
+      <ion-input color="light" type="text" formControlName="lastName"></ion-input>
       <div class="error-messages" *ngIf="f.lastName.touched && f.lastName.errors">
         <ion-text color="danger">
           <small *ngIf="f.lastName.errors?.required">Last name is required</small>
@@ -40,7 +40,7 @@
     <ion-item>
       <ion-label position="stacked">Mobile <ion-text color="danger">*</ion-text>
       </ion-label>
-      <ion-input type="number" formControlName="mobile"></ion-input>
+      <ion-input color="light" type="number" formControlName="mobile"></ion-input>
       <div class="error-messages" *ngIf="f.mobile.touched && f.mobile.errors">
         <ion-text color="danger">
           <small *ngIf="f.mobile.errors?.required">mobile number is required</small>
@@ -51,7 +51,7 @@
     <ion-item>
       <ion-label position="stacked">Email <ion-text color="danger">*</ion-text>
       </ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
+      <ion-input color="light" type="email" formControlName="email"></ion-input>
       <div class="error-messages" *ngIf="f.email.touched && f.email.errors">
         <ion-text color="danger">
           <small *ngIf="f.email.errors?.required">email is required</small>
@@ -63,7 +63,7 @@
     <ion-item>
       <ion-label position="stacked">Password <ion-text color="danger">*</ion-text>
       </ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
+      <ion-input color="light" type="password" formControlName="password"></ion-input>
       <div class="error-messages" *ngIf="f.password.touched && f.password.errors">
         <ion-text color="danger">
           <small *ngIf="f.password.errors?.required">password is required</small>
@@ -75,7 +75,7 @@
     <ion-item>
       <ion-label position="stacked">Confirm Password <ion-text color="danger">*</ion-text>
       </ion-label>
-      <ion-input type="password" formControlName="confirmPassword" 
+      <ion-input color="light" type="password" formControlName="confirmPassword" 
       (ionChange)="confirmPassword()"
       [debounce]="1000"></ion-input>
       <ion-text color="danger">
