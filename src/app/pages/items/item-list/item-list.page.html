@@ -11,6 +11,20 @@
 </ion-header>
 
 <ion-content>
+  <!-- filter starts here -->
+  <div class="filters">
+    <ion-item>
+      <ion-label position="floating" color="primary">Filter By:</ion-label>
+      <ion-select [value]="['priceLow', 'priceHigh']" [(ngModel)]="filterValue" interface="action-sheet"
+        (ionChange)="filter()"
+      >
+      <ion-select-option value="priceHigh">Price High</ion-select-option>
+      <ion-select-option value="priceLow">Price Low</ion-select-option>
+      <ion-select-option value="clearfilters">Clear Filters</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <!-- filter ends here -->
   <ion-virtual-scroll [items]="itemList" approxItemHeight="320px">
     <ion-list *virtualItem="let item; let itemBounds = bounds;">
     <ion-item class="ion-no-padding" color="light" (click)="onItemSelected(item)">
@@ -30,7 +44,7 @@
               <ion-icon name="basket"></ion-icon>
             </ion-button>
             </p>
-            <!-- <small>500gm</small> -->
+            <strong>{{ item?.units || '500gm' }}</strong>
             <h5>{{ item.price | currency:'INR' }}</h5>
             <span *ngIf="item.amount < 1"><ion-text color="danger">Out of stock</ion-text></span>
           </ion-col>
@@ -88,7 +102,7 @@
     
         <ion-tab-button routerLink="/tabs/tab3">
             <ion-icon name="basket"></ion-icon>
-          <ion-label>Cart</ion-label>
+          <ion-label>Basket</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     

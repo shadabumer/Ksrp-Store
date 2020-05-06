@@ -83,4 +83,23 @@ export class UsersService {
     return this.db.collection('users').doc(user.id).update({...user});
   }
 
+  // Forgot password functions
+  async forgotPassword(email: string) {
+    return await this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
+  async confirmPasswordReset(code: string, password: string) {
+    return await this.afAuth.auth.confirmPasswordReset(code, password);
+  }
+
+  // Reset password functions
+  async reauthenticateUser(email: string, password: string) {
+    let credential = firebase.auth.EmailAuthProvider.credential(email, password);
+    return this.afAuth.auth.currentUser.reauthenticateWithCredential(credential);
+  }
+
+  async resetPassword(newPassword: string) {
+    return await this.afAuth.auth.currentUser.updatePassword(newPassword);
+  }
+
 }

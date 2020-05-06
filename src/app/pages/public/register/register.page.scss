@@ -5,10 +5,19 @@
     ion-label {
         --color: #f4f4f4;
     }
+
+    ion-item {
+        border-bottom: 2px solid var(--ion-color-medium);
+    }
 }
 
 
 a, p {
     text-decoration: none;
     color: #f4f4f4;
+}
+
+.signup-loader {
+    text-align: center;
+    margin: 1.25rem 0;
 }

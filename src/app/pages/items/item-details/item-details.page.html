@@ -12,7 +12,7 @@
 
 <ion-content>
   <section class="item-details ion-padding">
-    <h1>{{ currentItem.name }} - {{ currentItem.description }}, {{ '1kg' }}</h1>
+    <h1>{{ currentItem.name }} - {{ currentItem.description }}, {{ currentItem?.units || '1kg' }}</h1>
     <h3>{{ currentItem.price | currency:'INR' }}</h3>
     <ion-img [src]="currentItem.imageUrl"></ion-img>
     <ion-text color="medium">
@@ -20,13 +20,13 @@
     </ion-text>
     <ion-text>
       <h4>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint aliquam velit molestias, esse modi vero sed libero molestiae ducimus aut facere est iste voluptate exercitationem nesciunt omnis minima deleniti. Rerum?
+        {{ currentItem?.about || 'Nothing to display'  }}
       </h4>
     </ion-text>
   </section>
   <ion-button size="default" expand="full" shape="round"
   (click)="addToCart($event)">
-    Add to Cart &nbsp;
+    Add to Basket &nbsp;
     <ion-icon name="basket"></ion-icon>
   </ion-button>
 
@@ -70,7 +70,7 @@
   
       <ion-tab-button routerLink="/tabs/tab3">
           <ion-icon name="basket"></ion-icon>
-        <ion-label>Cart</ion-label>
+        <ion-label>Basket</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
   

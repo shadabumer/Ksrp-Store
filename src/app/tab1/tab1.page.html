@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Ksrp-Store</ion-title>
+    <ion-title class="ion-text-center">Ksrp-Store11Cart</ion-title>
   </ion-toolbar>
   <app-search></app-search>
 </ion-header>
@@ -32,8 +32,10 @@
       <div class="row">
         <div class="column" *ngFor="let category of categories; let i = index"
         (click)="onSelectCategory(category.id)">
+        <ng-container *ngIf="i < 6">
           <ion-img [src]="category.imageUrl" [alt]="category.name"></ion-img>
           <ion-label class="ion-text-center">{{ category.name }}</ion-label>
+        </ng-container>
         </div>
       </div>
       <ion-button expand="block" shape="round" fill="outline" (click)="viewMore($event)">View More
@@ -41,37 +43,93 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- offers starts here -->
+  <div class="offers-slides">
+    <ion-card-header color="primary">
+      <ion-card-title class="ion-text-center">
+        <h3>Offers & Discounts</h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide>
+        <img src="/assets/images/offers/1.webp" alt="" />
+      </ion-slide>
+      <ion-slide>
+        <img src="/assets/images/offers/2.webp" alt="" />
+      </ion-slide>
+      <ion-slide>
+        <img src="/assets/images/offers/3.webp" alt="" />
+      </ion-slide>
+      <ion-slide>
+        <img src="/assets/images/offers/4.webp" alt="" />
+      </ion-slide>
+      <ion-slide>
+        <img src="/assets/images/offers/5.jpg" alt="" />
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <!-- offers ends here -->
+
   <!-- product list starts here -->
   <ion-list>
     <ion-list-header color="primary">
       <h2 class="ion-text-center">Browse Products</h2>
     </ion-list-header>
-    <ion-card (click)="onItemSelected(item)" *ngFor="let item of items">
-      <ion-grid>
-        <ion-row>
-          <ion-col size="4" class="item-image">
-            <ion-img [src]="item.imageUrl" [alt]="item.name"></ion-img>
-          </ion-col>
-          <ion-col size="8" class="ion-padding-start item-list">
-            <h4>{{ item.name }}</h4>
-            <p>
-              {{ item.description }}
-            </p>
-            <strong>500gm</strong>
-            <h5>{{ item.price | currency:'INR' }}
-              <ion-button class="ion-float-right" [disabled]="item.amount < 1" 
-              (click)="addToCart($event, item)">
-                Add &nbsp;
-                <ion-icon name="basket"></ion-icon>
-              </ion-button>
-            </h5>
-            <span *ngIf="item.amount < 1">
-              <ion-text color="danger">Out of stock</ion-text>
-            </span>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card>
+    <!-- filter starts here -->
+    <div class="filter">
+      <ion-item>
+        <ion-label position="floating" color="primary">Filter By:</ion-label>
+        <ion-select [value]="['category', 'priceHigh']" [(ngModel)]="filterValue" interface="action-sheet"
+          (ionChange)="filter()"
+        >
+        <ion-select-option value="priceHigh">Price High</ion-select-option>
+        <ion-select-option value="priceLow">Price Low</ion-select-option>
+        <ion-select-option value="category">Category</ion-select-option>
+          <ion-select-option value="clearfilters">Clear Filters</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="isFilterByCategory">
+        <ion-label position="floating" color="primary">Select Category:</ion-label>
+        <ion-select [(ngModel)]="categoryValue" interface="action-sheet"
+          (ionChange)="filterByCategory()"
+        >
+          <ion-select-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <!-- filter ends here -->
+    <ion-virtual-scroll [items]="items" approxItemHeight="320px">
+      <ion-list *virtualItem="let item; let itemBounds = bounds;">
+        
+        <ion-card (click)="onItemSelected(item)">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="4" class="item-image">
+                <ion-img [src]="item.imageUrl" [alt]="item.name"></ion-img>
+              </ion-col>
+              <ion-col size="8" class="ion-padding-start item-list">
+                <h4>{{ item.name }}</h4>
+                <p>
+                  {{ item.description }}
+                </p>
+                <strong>{{ item?.units || '500gm'}}</strong>
+                <h5>{{ item.price | currency:'INR' }}
+                  <ion-button class="ion-float-right" [disabled]="item.amount < 1" 
+                  (click)="addToCart($event, item)">
+                    Add &nbsp;
+                    <ion-icon name="basket"></ion-icon>
+                  </ion-button>
+                </h5>
+                <span *ngIf="item.amount < 1">
+                  <ion-text color="danger">Out of stock</ion-text>
+                </span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-list>
+    </ion-virtual-scroll>
   </ion-list>
   <!-- product list ends here -->
 

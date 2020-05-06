@@ -11,6 +11,11 @@ import { OrdersComponent } from './pages/account/orders/orders.component';
 const routes: Routes = [
   {
     path: '',
+    loadChildren: () => import('./pages/public/login/login.module').then( m => m.LoginPageModule),
+    canActivate: [UnAuthGuard]
+  },
+  {
+    path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
   },
   {
@@ -26,6 +31,7 @@ const routes: Routes = [
   {
     path: 'item-list',
     loadChildren: () => import('./pages/items/item-list/item-list.module').then( m => m.ItemListPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'item-details',
@@ -35,20 +41,40 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'address',
-    loadChildren: () => import('./pages/account/address/address.module').then( m => m.AddressPageModule)
+    loadChildren: () => import('./pages/account/address/address.module').then( m => m.AddressPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'checkout',
-    loadChildren: () => import('./pages/items/checkout/checkout.module').then( m => m.CheckoutPageModule)
+    loadChildren: () => import('./pages/items/checkout/checkout.module').then( m => m.CheckoutPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'payments',
-    loadChildren: () => import('./pages/payments/payments.module').then( m => m.PaymentsPageModule)
+    loadChildren: () => import('./pages/payments/payments.module').then( m => m.PaymentsPageModule),
+    canActivate: [AuthGuard]
   },
+  {
+    path: 'password-reset',
+    loadChildren: () => import('./pages/public/password-reset/password-reset.module').then( m => m.PasswordResetPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/public/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'about-us',
+    loadChildren: () => import('./pages/about-us/about-us.module').then( m => m.AboutUsPageModule),
+    canActivate: [AuthGuard]
+  },
+
+
 
 
 ];

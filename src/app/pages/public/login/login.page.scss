@@ -2,6 +2,10 @@
     ion-content {
         --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
     }
+
+    ion-item {
+        border-bottom: 2px solid var(--ion-color-medium);
+    }
 }
 
 .paz {
@@ -20,4 +24,9 @@ a {
 
 .list-form {
     margin-top: 1rem;
+}
+
+.login-loader {
+    text-align: center;
+    margin: 3.5rem 0;
 }

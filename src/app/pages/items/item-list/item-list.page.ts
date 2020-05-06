@@ -11,8 +11,11 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class ItemListPage implements OnInit {
   itemList: any[];
+  loadedItems: any[];
+
   itemListLength: number;
   categoryId: string;
+  filterValue: string;
 
   constructor(public itemService: ManageItemsService, 
     public cartService: CartService,
@@ -28,6 +31,7 @@ export class ItemListPage implements OnInit {
     this.itemService.getItemsByCategory(this.categoryId)
       .subscribe( itemList => {
         this.itemList = itemList;
+        this.loadedItems = [...itemList];
         this.itemListLength = this.itemList.length;
         console.log('itemslist:', itemList);
       })
@@ -41,6 +45,27 @@ export class ItemListPage implements OnInit {
   addToCart(e, item: Item) {
     e.stopPropagation();
     this.cartService.addProduct(item);
+  }
+
+  filter() {
+    console.log(this.filterValue);
+    this.itemList = [...this.itemList];
+    switch(this.filterValue) {
+      case 'priceHigh': 
+        this.itemList = this.itemList.sort((a, b) => b.price - a.price);
+        break;
+      case 'priceLow': 
+        this.itemList = this.itemList.sort((a, b) => a.price - b.price);
+        break;
+      default: this.clearFilters(); break;
+    }
+  }
+
+  clearFilters() {
+    this.filterValue = "";
+
+    console.log('loaded items:', this.loadedItems);
+    this.itemList = [...this.loadedItems];
   }
 
 }

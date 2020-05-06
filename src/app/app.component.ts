@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { UsersService } from './shared/users.service';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+import { ForgotPasswordPage } from './pages/public/forgot-password/forgot-password.page';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +21,20 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public authenticationService: UsersService,
-    private router: Router
+    private router: Router,
+    private deeplinks: Deeplinks
   ) {
     this.initializeApp();
+
+    this.deeplinks.route({
+      '/forgot-password': ForgotPasswordPage
+    }).subscribe(match => {
+      this.router.navigate(['forgot-password'], { queryParams : match.$args })
+      console.log('routes matched:', match);
+    }, nomatch => {
+      this.router.navigate(['']);
+      console.error('Got a deeplink that didn\'t match', nomatch);
+    })
   }
 
   initializeApp() {
@@ -35,10 +48,8 @@ export class AppComponent {
 
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['tabs', 'tab1']);
           this.isAuthenticated = true;
         } else {
-          this.router.navigate(['login']);
           this.isAuthenticated = false;
         }
       });
@@ -47,6 +58,11 @@ export class AppComponent {
 
   logout() {
     const response = this.authenticationService.logout();
-    console.log('logged out:', response);
+    response.then( success => {
+      this.router.navigate(['login']);
+    })
+    .catch(error => {
+      console.log('something went wrong:', error);
+    })
   }
 }

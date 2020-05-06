@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane contentId="menuContent">
-    <ion-menu contentId="menuContent" side="start" type="overlay">
+    <ion-menu contentId="menuContent" side="start" type="overlay" *ngIf="isAuthenticated">
       <ion-header >
         <ion-toolbar color="primary">
           <ion-title>Menu</ion-title>
@@ -8,7 +8,7 @@
       </ion-header>
       <ion-content class="bg-profile">
         <ion-list >
-          <ion-item routerLink="" color="primary">
+          <ion-item routerLink="tabs" color="primary">
             <ion-icon name="home" slot="start"></ion-icon>
             <ion-label>Home</ion-label>
           </ion-item>
@@ -19,6 +19,14 @@
           <ion-item routerLink="account/orders" color="primary">
             <ion-icon name="cube" slot="start"></ion-icon>
             <ion-label>Orders</ion-label>
+          </ion-item>
+          <ion-item routerLink="password-reset" color="primary">
+            <ion-icon name="lock" slot="start"></ion-icon>
+            <ion-label>Change password</ion-label>
+          </ion-item>
+          <ion-item routerLink="about-us" color="primary">
+            <ion-icon name="information-circle" slot="start"></ion-icon>
+            <ion-label>About Us</ion-label>
           </ion-item>
 
           <ion-item routerLink="login" *ngIf="!isAuthenticated" color="primary">

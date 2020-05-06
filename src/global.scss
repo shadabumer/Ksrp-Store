@@ -242,9 +242,21 @@ ion-item {
     }
   }
 
+  // Personal customizations
+
   .edit-profile {
     --height: 50%;
     --border-radius: 10px;
     padding: 25px;
   }
+
+.Authentication-error {
+    --color: red;
+    --button-color: white;
+}
+
+.Authentication-success {
+  --color: green;
+  --button-color: white;
+}
 

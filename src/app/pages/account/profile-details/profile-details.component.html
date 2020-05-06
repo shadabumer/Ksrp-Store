@@ -13,7 +13,7 @@
   <div class="card" *ngIf="currentUser$ | async as currentUser">
     <div class="header">
       <div class="avatar">
-        <img src="https://avatars.dicebear.com/v2/male/john.svg" alt="">
+        <img [src]="currentUser.imageUrl" alt="">
       </div>
     </div>
     <div class="card-body">
@@ -27,7 +27,7 @@
         </h6> -->
       </div>
 
-      <!-- <ion-button expand="full" color="primary">view details</ion-button> -->
+      <ion-button expand="full" color="primary" (click)="updateProfilePic()">Update Profile Pic</ion-button>
       <ion-button expand="full" color="secondary" (click)="editProfile()">Edit profile</ion-button>
       <ion-button expand="full" color="tertiary" (click)="goHome()">Back to Home</ion-button>
 

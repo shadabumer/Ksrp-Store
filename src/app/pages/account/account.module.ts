@@ -11,6 +11,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { AddressPageModule } from './address/address.module';
 import { EditProfileComponent } from './profile-details/edit-profile/edit-profile.component';
+import { UploadImageComponent } from './profile-details/upload-image/upload-image.component';
+import { FileSizeFormatPipe } from 'src/app/pipes/file-size-format.pipe';
 
 @NgModule({
   imports: [
@@ -19,15 +21,19 @@ import { EditProfileComponent } from './profile-details/edit-profile/edit-profil
     ReactiveFormsModule,
     IonicModule,
     AccountPageRoutingModule,
-    AddressPageModule
-    
+    AddressPageModule,    
   ],
   declarations: [
     AccountPage, 
     OrdersComponent,
     ProfileDetailsComponent,
     EditProfileComponent,
+    UploadImageComponent,
+    FileSizeFormatPipe
   ],
-  entryComponents: [EditProfileComponent]
+  entryComponents: [
+    EditProfileComponent, 
+    UploadImageComponent,
+  ]
 })
 export class AccountPageModule {}

@@ -22,7 +22,7 @@
     </div>
 
     <form [formGroup]="loginForm" class="list-form" (ngSubmit)="onSubmit()">
-      <ion-item class="animated fadeInUp ion-no-padding">
+      <ion-item class="animated fadeInUp ion-no-padding" lines="none">
         <ion-label position="floating">
           <ion-icon name="mail" item-start></ion-icon>
           Email
@@ -36,7 +36,7 @@
         </ion-text>
       </div>
 
-      <ion-item class="animated fadeInUp ion-no-padding">
+      <ion-item class="animated fadeInUp ion-no-padding" lines="none">
         <ion-label position="floating">
           <ion-icon name="lock" item-start></ion-icon>
           Password
@@ -49,8 +49,22 @@
           <small *ngIf="f.password.errors?.minlength">Minimum length of password is 6</small>
         </ion-text>
       </div>
+
+      <p tappable (click)="forgotPass()" class="paz ion-text-right">
+        <ion-text color="light">
+          <strong>Forgot Pass?</strong>
+        </ion-text>
+      </p>
+
       <div class="ion-margin-top">
-        <ion-button icon-left size="default" expand="full" shape="round" color="dark" type="submit">
+        <ion-button 
+        icon-left 
+        size="default" 
+        expand="full" 
+        shape="round" 
+        color="dark" 
+        type="submit"
+        [disabled]="loginForm.invalid">
           <ion-icon name="log-in"></ion-icon>
           &nbsp; Login
         </ion-button>
@@ -67,5 +81,11 @@
         </ion-text>
       </span>
     </div>
+
+    <div class="login-loader" *ngIf="isSubmitted">
+      <p><ion-text color="light">Logging you in</ion-text></p>
+      <ion-spinner color="secondary" name="crescent"></ion-spinner>
+    </div>
+
   </div>
 </ion-content>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 import { CategoryService } from '../shared/category.service';
 import { ManageItemsService } from '../shared/manage-items.service';
@@ -22,8 +21,13 @@ export class Tab1Page implements OnInit {
 
   categories: Category[];
   isCategoriesLoaded: boolean = false;
+  isFilterByCategory: boolean = false;
+
   items: Item[];
+  loadedItems: Item[];
   isItemsLoaded: boolean = false;
+  filterValue: string;
+  categoryValue: string;
   
   constructor(public categoryService: CategoryService,
               public itemService: ManageItemsService,
@@ -33,13 +37,14 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
     this.categoryService.getCategories()
       .subscribe((categoryList: any) => {
-        this.categories = categoryList.slice(0, 6);
+        this.categories = categoryList;
         this.isCategoriesLoaded = true;
       })
 
     this.itemService.getItems()
     .subscribe((itemsList: any) => {
       this.items = itemsList;
+      this.loadedItems = [...itemsList];
       this.isItemsLoaded = true;
     })
   }
@@ -62,4 +67,34 @@ export class Tab1Page implements OnInit {
     this.router.navigate(['tabs', 'tab2']);
   }
 
+  filter() {
+    console.log(this.filterValue);
+    this.items = [...this.items];
+    switch(this.filterValue) {
+      case 'priceHigh': 
+        this.items = this.items.sort((a, b) => b.price - a.price);
+        break;
+      case 'priceLow': 
+        this.items = this.items.sort((a, b) => a.price - b.price);
+        break;
+      case 'category': this.isFilterByCategory = true; break;
+      default: this.clearFilters(); break;
+    }
+  }
+
+  filterByCategory() {
+    this.items = [...this.loadedItems];
+
+    console.log('selected category:', this.categoryValue)
+    this.items = this.items.filter(item => item.category === this.categoryValue);
+  }
+
+  clearFilters() {
+    this.filterValue = "";
+    this.categoryValue = "";
+    this.isFilterByCategory = false;
+
+    console.log('loaded items:', this.loadedItems);
+    this.items = [...this.loadedItems];
+  }
 }

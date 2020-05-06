@@ -5,6 +5,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'firebase';
 import { UsersService } from 'src/app/shared/users.service';
+import { UploadImageComponent } from './upload-image/upload-image.component';
 
 @Component({
   selector: 'app-profile-details',
@@ -38,6 +39,16 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
         currentUser : { ...this.currentUser }
       },
       cssClass: 'edit-profile'
+    });
+    return await modal.present();
+  }
+
+  async updateProfilePic() {
+    const modal = await this.modalController.create({
+      component: UploadImageComponent,
+      componentProps: {
+        currentUser : { ...this.currentUser }
+      },
     });
     return await modal.present();
   }

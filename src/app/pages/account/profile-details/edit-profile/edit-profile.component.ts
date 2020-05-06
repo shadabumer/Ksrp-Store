@@ -13,8 +13,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   currentUser: User;
 
-  constructor(private user: UsersService, navParams: NavParams, private modalCtrl: ModalController) {
-    this.currentUser = navParams.get('currentUser');
+  constructor(private user: UsersService, private navParams: NavParams, private modalCtrl: ModalController) {
+    this.currentUser = this.navParams.get('currentUser');
    }
 
   ngOnInit() {
@@ -34,7 +34,8 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       firstName: this.f.firstName.value,
       lastName: this.f.lastName.value,
       mobile: this.f.mobile.value,
-      email: this.currentUser.email
+      email: this.currentUser.email,
+      imageUrl: this.currentUser.imageUrl,
     }
     console.log('form submitted:', editUser);
     this.user.updateUser(editUser);

@@ -62,4 +62,10 @@ export class ManageItemsService {
   createFeedback(itemId: string, userId: string, feedback: Feedback) {
     return this.db.collection('feedbacks').doc(itemId).collection('users').doc(userId).set(feedback);
   }
+
+  filterItemsByPrice(price: string) {
+    return price === 'priceHigh' 
+      ? this.db.collection('items', ref => ref.orderBy('price', 'desc')).valueChanges()
+      : this.db.collection('items', ref => ref.orderBy('price', 'asc')).valueChanges();
+  }
 }
